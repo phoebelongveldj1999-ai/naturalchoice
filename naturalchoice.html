@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--sage:#7a9e7e;--sage-light:#c8dbc9;--sage-pale:#f0f5f0;
+--earth:#8b7355;--cream:#faf8f4;--dark:#2c2c28;
+--text-muted:#7a7a72;--leaf:#4a7c59;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);font-weight:300;overflow-x:hidden}
+
+nav{display:flex;justify-content:space-between;align-items:center;padding:2rem 4rem;position:fixed;top:0;width:100%;background:rgba(250,248,244,0.92);backdrop-filter:blur(8px);z-index:100;border-bottom:0.5px solid rgba(122,158,126,0.2)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;letter-spacing:0.15em;color:var(--dark)}
+.nav-logo span{font-style:italic;color:var(--sage)}
+.nav-links{display:flex;gap:2.5rem}
+.nav-links a{text-decoration:none;color:var(--text-muted);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.3s}
+.nav-links a:hover{color:var(--leaf)}
+
+.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 4rem 4rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;right:-5%;top:10%;width:55%;height:85%;background:var(--sage-pale);border-radius:60% 40% 40% 60% / 50% 50% 50% 50%;opacity:0.6;z-index:0}
+.leaf-deco{position:absolute;font-size:8rem;opacity:0.07;color:var(--sage);z-index:0}
+.leaf-1{top:15%;right:20%;transform:rotate(25deg)}
+.leaf-2{bottom:20%;right:35%;transform:rotate(-15deg);font-size:5rem}
+.hero-content{position:relative;z-index:1;max-width:560px}
+.hero-tag{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--sage);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.8rem}
+.hero-tag::before{content:'';width:2rem;height:0.5px;background:var(--sage)}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;line-height:1.15;color:var(--dark);margin-bottom:1rem}
+.hero-title em{font-style:italic;color:var(--sage)}
+.hero-subtitle{font-size:0.9rem;line-height:1.8;color:var(--text-muted);margin-bottom:2.5rem;max-width:420px}
+.hero-cta{display:inline-flex;align-items:center;gap:0.8rem;padding:0.9rem 2rem;background:var(--sage);color:white;text-decoration:none;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2rem;transition:all 0.3s}
+.hero-cta:hover{background:var(--leaf);transform:translateY(-1px)}
+.hero-cta-ghost{margin-left:1rem;font-size:0.8rem;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;border-bottom:0.5px solid var(--text-muted);padding-bottom:1px}
+
+.section{padding:6rem 4rem}
+.section-label{font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--sage);margin-bottom:3rem;display:flex;align-items:center;gap:1rem}
+.section-label::after{content:'';flex:1;height:0.5px;background:var(--sage-light)}
+
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
+.pillar{padding:2.5rem 2rem;border:0.5px solid var(--sage-light);border-radius:1rem;position:relative;overflow:hidden;transition:all 0.3s;cursor:default}
+.pillar::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--sage),var(--sage-light))}
+.pillar:hover{transform:translateY(-4px);border-color:var(--sage)}
+.pillar-icon{font-size:1.8rem;margin-bottom:1.2rem;opacity:0.7}
+.pillar-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;margin-bottom:0.8rem;color:var(--dark)}
+.pillar-text{font-size:0.82rem;line-height:1.8;color:var(--text-muted)}
+.pillar-step{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);margin-bottom:0.6rem;opacity:0.8}
+
+.blog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
+.blog-card{border-bottom:0.5px solid var(--sage-light);padding-bottom:2rem;cursor:pointer;transition:all 0.3s}
+.blog-card:hover .blog-title{color:var(--leaf)}
+.blog-tag{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);margin-bottom:0.8rem}
+.blog-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;line-height:1.3;color:var(--dark);margin-bottom:0.8rem;transition:color 0.3s}
+.blog-excerpt{font-size:0.8rem;line-height:1.8;color:var(--text-muted);margin-bottom:1rem}
+.blog-date{font-size:0.72rem;color:var(--text-muted);opacity:0.7}
+
+.journal-section{background:var(--sage-pale);border-radius:2rem;padding:4rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.journal-visual{position:relative;height:320px}
+.journal-page{position:absolute;background:white;border-radius:0.5rem;box-shadow:0 8px 32px rgba(122,158,126,0.15);padding:2rem}
+.journal-page-1{width:220px;height:280px;top:0;left:20px;transform:rotate(-3deg)}
+.journal-page-2{width:220px;height:280px;top:20px;left:60px;transform:rotate(1deg)}
+.journal-lines{display:flex;flex-direction:column;gap:0.7rem;margin-top:1rem}
+.j-line{height:0.5px;background:var(--sage-light);border-radius:1px}
+.j-line:nth-child(1){width:80%}
+.j-line:nth-child(2){width:60%}
+.j-line:nth-child(3){width:90%}
+.j-line:nth-child(4){width:45%}
+.j-line:nth-child(5){width:75%}
+.j-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);display:inline-block;margin-right:0.5rem}
+.journal-date{font-size:0.7rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.5rem}
+.journal-content h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;line-height:1.3;margin-bottom:1.2rem}
+.journal-content p{font-size:0.82rem;line-height:1.8;color:var(--text-muted);margin-bottom:1.5rem}
+.update-list{display:flex;flex-direction:column;gap:1rem}
+.update-item{display:flex;gap:1rem;align-items:flex-start}
+.update-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);margin-top:0.4rem;flex-shrink:0}
+.update-text{font-size:0.8rem;line-height:1.6;color:var(--text-muted)}
+
+.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.shop-item{border:0.5px solid var(--sage-light);border-radius:1rem;overflow:hidden;transition:all 0.3s;cursor:pointer}
+.shop-item:hover{border-color:var(--sage);transform:translateY(-3px)}
+.shop-img{height:160px;background:var(--sage-pale);display:flex;align-items:center;justify-content:center;font-size:3rem;opacity:0.5}
+.shop-info{padding:1.2rem}
+.shop-name{font-size:0.85rem;font-weight:400;margin-bottom:0.3rem}
+.shop-desc{font-size:0.75rem;color:var(--text-muted);line-height:1.6;margin-bottom:0.8rem}
+.shop-link{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--sage);text-decoration:none}
+
+footer{padding:3rem 4rem;border-top:0.5px solid var(--sage-light);display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:0.15em}
+.footer-logo span{font-style:italic;color:var(--sage)}
+.footer-text{font-size:0.75rem;color:var(--text-muted)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">自然选择 <span>NaturalChoice</span></div>
+  <div class="nav-links">
+    <a href="#">文章 Articles</a>
+    <a href="#">手帐 Journal</a>
+    <a href="#">好物 Shop</a>
+    <a href="#">关于 About</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="leaf-deco leaf-1">🌿</div>
+  <div class="leaf-deco leaf-2">🌱</div>
+  <div class="hero-content">
+    <div class="hero-tag">自我觉察 · 自然成长</div>
+    <h1 class="hero-title">看见自己的<br><em>natural choice</em><br>从这里开始</h1>
+    <p class="hero-subtitle">觉察自己的自然选择，接纳它，然后让改变成为一种自然而然的事。这里记录一个真实的人，如何一点点和自己相处。</p>
+    <a href="#" class="hero-cta">开始阅读</a>
+    <a href="#" class="hero-cta-ghost">了解更多</a>
+  </div>
+</section>
+
+<section class="section" style="background:white">
+  <div class="section-label">自然选择原则 The NaturalChoice Principles</div>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-step">Step 01 · 觉察</div>
+      <div class="pillar-icon">🌿</div>
+      <div class="pillar-title">看见你的<br>Natural Choice</div>
+      <p class="pillar-text">不评判，不急着改变。先观察自己在自然状态下会做什么选择——这是一切的起点。你的automatic choice里藏着真实的自己。</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-step">Step 02 · 接纳</div>
+      <div class="pillar-icon">🌱</div>
+      <div class="pillar-title">Radically<br>Accept It</div>
+      <p class="pillar-text">接纳不是放弃改变，是先停止和自己较劲。当你不再用力对抗一个pattern，你才真正有空间去理解它从哪里来。</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-step">Step 03 · 改变</div>
+      <div class="pillar-icon">🍃</div>
+      <div class="pillar-title">Make It a<br>Natural Choice</div>
+      <p class="pillar-text">不是靠意志力硬撑，而是设计一个让好的选择变得自然的环境。改变足够小，才能真正发生，才能真正留下来。</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-label">最新文章 Latest Articles</div>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-tag">自我觉察 · Self-awareness</div>
+      <h2 class="blog-title">看见自己的饮食pattern，比节食更重要的事</h2>
+      <p class="blog-excerpt">七年前一个暴食的夜晚，我做了一件改变了一切的事——我把它写下来了。不是为了惩罚自己，只是记录。</p>
+      <div class="blog-date">2025年5月</div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-tag">ADHD · 工作方式</div>
+      <h2 class="blog-title">ADHD和手帐：先行动，后记录</h2>
+      <p class="blog-excerpt">我不是一个能长期投入一个大项目的人。但我学会了在那个有能量的窗口里，跑完一个完整的流程。</p>
+      <div class="blog-date">2025年4月</div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-tag">女性 · 身份</div>
+      <h2 class="blog-title">认真生活的女性，与"被社会期待"之间的张力</h2>
+      <p class="blog-excerpt">不买衣服、写手帐、严肃对待工作——我承认这种生活方式不会自然通向某些方向。但我也不想改变。</p>
+      <div class="blog-date">2025年3月</div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-tag">AI时代 · 自我价值</div>
+      <h2 class="blog-title">AI时代，最稀缺的能力是知道自己是谁</h2>
+      <p class="blog-excerpt">大部分人无法坚定说出自己不会被取代。这不是能力问题，是从来没有认真问过自己真正在意什么。</p>
+      <div class="blog-date">2025年2月</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:white">
+  <div class="section-label">手帐更新 Journal Updates</div>
+  <div class="journal-section">
+    <div class="journal-visual">
+      <div class="journal-page journal-page-1">
+        <div class="journal-date">May · 2025</div>
+        <div style="display:flex;gap:0.3rem;margin-bottom:1rem">
+          <span class="j-dot"></span>
+          <span style="font-size:0.75rem;color:var(--text-muted)">健康计划</span>
+        </div>
+        <div class="journal-lines">
+          <div class="j-line"></div>
+          <div class="j-line"></div>
+          <div class="j-line"></div>
+          <div class="j-line"></div>
+          <div class="j-line"></div>
+          <div class="j-line"></div>
+          <div class="j-line"></div>
+        </div>
+      </div>
+      <div class="journal-page journal-page-2">
+        <div class="journal-date">灵感 · Insight</div>
+        <div class="journal-lines" style="margin-top:0.5rem">
+          <div class="j-line" style="width:85%"></div>
+          <div class="j-line" style="width:60%"></div>
+          <div class="j-line" style="width:95%"></div>
+          <div class="j-line" style="width:50%"></div>
+          <div class="j-line" style="width:70%"></div>
+          <div class="j-line" style="width:88%"></div>
+          <div class="j-line" style="width:40%"></div>
+        </div>
+      </div>
+    </div>
+    <div class="journal-content">
+      <h3>手帐里可以<em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--sage)">写什么</em></h3>
+      <p>不是教你把手帐写好看。是分享我每天真实在记录的东西，以及它如何帮我看见自己。</p>
+      <div class="update-list">
+        <div class="update-item">
+          <div class="update-dot"></div>
+          <div class="update-text">如何用时间轴记录你的真实一天，而不是计划中的一天</div>
+        </div>
+        <div class="update-item">
+          <div class="update-dot"></div>
+          <div class="update-text">灵感栏：捕捉那些"有点扎"的想法</div>
+        </div>
+        <div class="update-item">
+          <div class="update-dot"></div>
+          <div class="update-text">计划vs记录的gap，是最诚实的自我觉察</div>
+        </div>
+        <div class="update-item">
+          <div class="update-dot"></div>
+          <div class="update-text">每月回顾：找到反复出现的pattern</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-label">我在用的东西 What I use</div>
+  <div class="shop-grid">
+    <div class="shop-item">
+      <div class="shop-img">📓</div>
+      <div class="shop-info">
+        <div class="shop-name">手帐本</div>
+        <div class="shop-desc">我用了三年的手帐本，纸质刚好，不洇墨，适合钢笔和针管笔。</div>
+        <a href="#" class="shop-link">查看 →</a>
+      </div>
+    </div>
+    <div class="shop-item">
+      <div class="shop-img">✒️</div>
+      <div class="shop-info">
+        <div class="shop-name">书写工具</div>
+        <div class="shop-desc">每天用的针管笔和钢笔，让手写变成一件有质感的事。</div>
+        <a href="#" class="shop-link">查看 →</a>
+      </div>
+    </div>
+    <div class="shop-item">
+      <div class="shop-img">🌿</div>
+      <div class="shop-info">
+        <div class="shop-name">日常好物</div>
+        <div class="shop-desc">帮助我建立稳定生活结构的东西，不是网红推荐，是真实在用。</div>
+        <a href="#" class="shop-link">查看 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">自然选择 <span>NaturalChoice</span></div>
+  <div class="footer-text">觉察 · 接纳 · 自然改变</div>
+  <div class="footer-text" style="font-size:0.7rem;opacity:0.6">© 2025 NaturalChoice</div>
+</footer>
+
+</body>
+</html>
